@@ -1,0 +1,100 @@
+﻿@model BackendEcom.Models.ProductUploadViewModel
+
+@{ ViewData["Title"] = "UploadProd"; }
+
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/ImageStyleSheet.css" />
+    @*<script>
+
+            const image_input = document.querySelector("#image_input");
+            var uploaded_image = "";
+
+            image_input.addEventListener("change", function () {
+                const reader = new FileReader();
+                /*var reader = new window.FileReader();*/
+                reader.addEventListener("load", () => {
+                    uploaded_image = reader.result;
+                    document.querySelector("#display_image").style.backgroundImage = 'url(${uploaded_image})';
+
+                });
+                reader.readAsDataURL(this.files[0]);
+
+            })
+        </script>*@
+</head>
+<body>
+    <div>
+        @if (@ViewBag.nullImage != null)
+        {
+<span><strong>@ViewBag.nullImage</strong></span>}
+    </div>
+    <div>
+        @if (@ViewBag.ProductAdd != null)
+        {
+<span><strong>@ViewBag.ProductAdd</strong></span>}
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @*<form asp-action="UploadProd">*@
+            @using (Html.BeginForm("UploadProd", "Seller", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {@*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                            <div class="form-group">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="Description" class="control-label"></label>
+                                                <input asp-for="Description" class="form-control" />
+                                                <span asp-validation-for="Description" class="text-danger"></span>
+                                            </div>
+                                                            <div class="form-group">
+                                                                <label asp-for="Brand" class="control-label"></label>
+                                                                <input asp-for="Brand" class="form-control" />
+                                                                <span asp-validation-for="Brand" class="text-danger"></span>
+                                                            </div>
+                                                                            <div class="form-group">
+                                                                                <label asp-for="QunatityAvailable" class="control-label"></label>
+                                                                                <input asp-for="QunatityAvailable" class="form-control" />
+                                                                                <span asp-validation-for="QunatityAvailable" class="text-danger"></span>
+                                                                            </div>
+                                                                                            <div class="form-group">
+                                                                                                <label asp-for="Price" class="control-label"></label>
+                                                                                                <input asp-for="Price" class="form-control" />
+                                                                                                <span asp-validation-for="Price" class="text-danger"></span>
+                                                                                            </div>
+                                                                                                            <div class="form-group">
+                                                                                                                <label asp-for="VariationMetadata" class="control-label"></label>
+                                                                                                                <input asp-for="VariationMetadata" class="form-control" />
+                                                                                                                <span asp-validation-for="VariationMetadata" class="text-danger"></span>
+                                                                                                            </div>
+                                                                                                                            <div class="form-group">
+                                                                                                                                @*<label for="IsCancelable">IsCancelable</label>
+                                                                                                                                    <input class="control-label" type="checkbox" id="IsCancelable" name="IsCancelable" value="1">*@
+                                                                                                                                <label asp-for="IsCancelable" class="form-control" for="IsCancelable">IsCancelable</label><br>
+                                                                                                                                <input asp-for="IsCancelable" type="checkbox" class="form-control" />
+                                                                                                                            </div>
+                                                                                                                                            <div class="form-group">
+                                                                                                                                                <label asp-for="IsReturnable" class="form-control" for="IsReturnable">IsReturnable</label><br>
+                                                                                                                                                <input asp-for="IsReturnable" type="checkbox" class="form-control" />
+                                                                                                                                            </div>
+                                                                                                                                                            <div>
+                                                                                                                                                                <input type="file" name="file" id="file" class="form-control" />
+                                                                                                                                                            </div>
+
+                                                                                                                                                                            <div class="form-group">
+                                                                                                                                                                                <input type="submit" value="Create" class="btn btn-primary" />
+                                                                                                                                                                            </div>            }
+        </div>
+    </div>
+
+
+    @*<input type="file" id="image_input" accept="image/png, image/jpg" />
+
+        <div id="display_image"></div>*@
+    @*<script src="~/js/ImageScript.js"></script>*@
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+﻿@model IList<ProductListViewModel>
+@{ ViewData["Title"] = "Product View "; }
+@{ var data = Model; }
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Product View Page</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    @*<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" rel="stylesheet" />*@
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/CustomStyleSheet.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        /* .container{
+            width:100%;
+            margin-top:10%;
+            font-family:serif;
+            letter-spacing:1px;
+        }*/
+    </style>
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <h2>New Arrivals</h2>
+        <div class="row">
+            @if (@TempData["OrderSuccess"] != null)
+            {
+<h1>@TempData["OrderSuccess"]</h1>}
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+<div class="col-md-4">
+    @*@using (Html.BeginForm(FormMethod.Post)) , new {enctype="multipart/form-data" } *@
+    @using (Html.BeginForm("ProductList", "Product", FormMethod.Post))
+    {
+@Html.AntiForgeryToken()
+                    <div class="product-top">
+
+                        @*@Html.TextBoxFor(x => @Model[i].ProductId)
+                            @Html.TextBoxFor(x => @Model[i].ProductVariationId)*@
+
+                        <input type="text" name="ProductId" hidden value="@Model[i].ProductId" />
+                        <input type="text" name="ProductVariationId" hidden value="@Model[i].ProductVariationId" />
+                        <h3 style="block-size:auto">@Model[i].Brand</h3>
+                        <img style=" width: 300px;height:300px" src=@Model[i].PrimaryImageName />
+                        <div class="overlay">
+                            <button type="button" class="btn btn-secondary" title="Quick Shop">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary" title="Add to wishlist">
+                                <i class="fa fa-heart-o"></i>
+                            </button>
+                            <button type="submit" class="btn btn-secondary" title="Add to cart">
+                                <i class="fa fa-shopping-cart"></i>
+                            </button><br />
+                            <span style=" width:45px; height: 20px;">Qnty want to add in cart<input type="number" name="qnty" value="1" /></span>
+                        </div>
+                    </div>
+                                        <div class="available_title">Available: <span>@Model[i].QunatityAvailable</span></div>
+                                                            <div class="product-bottom text-center ">
+
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star"></i>
+                                                                <i class="fa fa-star-half-o"></i>
+                                                                <i class="fa fa-star-half-o"></i>
+                                                                <h3>@Model[i].PName</h3>
+                                                                <h3>₹@Model[i].Price</h3>
+                                                                <span>@Model[i].PDescription</span><br />
+                                                                @if (@Model[i].IsReturnable == true)
+                                                                {
+                                            <img src="https://images-na.ssl-images-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-returns-struck._CB484058890_.png"
+                                                 class="a-image-wrapper a-manually-loaded icon-box" id="" style="height:35px;width:35px;" alt="Not Returnable"
+                                                 data-a-image-source="https://images-na.ssl-images-amazon.com/images/G/31/A2I-Convert/mobile/IconFarm/icon-returns-struck._CB484058890_.png">
+                                                                    <h4>Is Returnable</h4> }
+                                                                else
+                                                                {
+                                            <h4>Not Returnable</h4>}
+                                                            </div>}
+
+</div>      }
+
+
+
+
+
+
+
+
+            @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+                <script type="text/javascript">
+                    $(function () {
+                        $("#submit").click(function () {
+                            document.forms[0].ProductList();
+                            return false;
+                        });
+                    });
+                </script>*@
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="~/js/scripts.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        </div>
+        <div>
+        </div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Premium" class="btn btn-success" onclick="location.href='@Url.Action("AddProduct", "Product")'" />
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

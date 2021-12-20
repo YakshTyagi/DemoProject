@@ -1,0 +1,189 @@
+﻿@using BackendEcom.Models
+@model IList<CartViewModel>
+@{
+    ViewData["Title"] = "Product View ";
+}
+@{
+    var data = Model;
+}
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Product View Page</title>
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    @*<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/fontawesome.min.css" rel="stylesheet" />*@
+    <link href="~/css/styles.css" rel="stylesheet" />
+    <link href="~/css/CustomStyleSheet.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        /* .container{
+                width:100%;
+                margin-top:10%;
+                font-family:serif;
+                letter-spacing:1px;
+            }*/
+    </style>
+
+</head>
+<body class="bg-primary">
+    <div class="container">
+        <h2>Your Selected Items</h2>
+        @if (@ViewBag.ProductAddError != null)
+        {
+            <span><strong>@ViewBag.ProductAddError</strong></span>
+        }
+        @if (@ViewBag.EmptyCart != null)
+        {
+            <span><strong>@ViewBag.EmptyCart</strong></span>
+        }
+        <div class="row">
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                <div class="col-md-4">
+                    @using (Html.BeginForm("GetCart", "Product", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="product-top">
+                            <h3 style="block-size:auto">@Model[i].Brand</h3>
+                            <img style=" width: 100px;height:100px" src=@Model[i].PrimaryImageName />
+                        </div>
+                        <div id="dvProdListing" class="product-bottom text-center ">
+
+                            <h3>@Model[i].PName</h3>
+                            <h3>₹@Model[i].Price</h3>
+                            @*<select name="Qty" id="Qty">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>*@
+                            <label>Quantity</label>
+                            <input type="number" id="Qty" name="Qty" value="@Model[i].Quantity" readonly />
+                            @*<h3><strong>Discount</strong></h3><input readonly value="-₹ 00" />*@
+
+                            <h3><strong>Delivery Charges</strong></h3>
+                            <input type="text" id="deliveryCharges" name="deliveryCharges" value="69.00" />
+                            <input type="text" name="Prodprice" id="Prodprice" hidden value="@Model[i].Price" />
+                            <h3>Total Amount</h3>
+                            <input type="text" readonly name="TotalAmount" id="TotalAmount" value="@Model[i].TotalAmount" />
+                            <button type="submit" class="btn btn-secondary">Place Order</button><br />
+
+
+                            <input type="text" name="ProductId" hidden value="@Model[i].ProductId" />
+                            <input type="text" name="ProductVariationId" hidden value="@Model[i].ProductVariationId" />
+                        </div>
+                    }
+
+                </div>
+
+            }
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+            <script src="~/js/scripts.js"></script>
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+        </div>
+        <div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        var price = 0;
+        var dlCharge = 0;
+
+        $(".product-top").each(function () {
+            $(this).find("input:text").each(function () {
+                if ($(this).prop('name') == 'Prodprice') {
+                    price = $(this).val();
+                }
+                if ($(this).prop('name') == 'deliveryCharges') {
+                    dlCharge = $(this).val();
+                }
+                if ($(this).prop('name') == 'TotalAmount') {
+                    $(this).val(parseInt(price) + parseInt(dlCharge));
+                }
+
+            });
+        });
+
+
+
+    }));
+            // var id = $('#dvProdListing').val();
+            //$('#dvProdListing').each(function () {
+            //    //var images = $(this).find(".scrolling img");
+            //    //var width = images.width();
+            //    //var imgLength = images.length;
+            //    //$(this).find(".scrolling").width(width * imgLength * 1.2);
+
+
+            //    var Qty = $(this).find("Qty").value;
+            //    alert(Qty);
+            //    //var deliveryCharges = document.getElementById("deliveryCharges").value;
+            //    //var price = document.getElementById("price").value;
+            //    //var TotalAmount = (parseInt(Qty) * parseInt(price)) + parseInt(deliveryCharges);
+
+            //});
+
+
+            //var Prodprice = 0.00;
+            //var TotalAmount = 0.00;
+            //var deliveryCharges = 0.00;
+
+    /* $("#dvProdListing > input").each(function () {*/
+            //allVal += '&' + $(this).attr('name') + '=' + $(this).val();
+
+            //if ($(this).attr('name') == 'deliveryCharges') {
+            //    deliveryCharges = $(this).val();
+
+            //}
+            //if ($(this).attr('name') == 'Prodprice') {
+            //    Prodprice = $(this).val();
+            //}
+            //if ($(this).attr('name') == 'TotalAmount') {
+            //    TotalAmount = $(this).val();
+            //    TotalAmount =  deliveryCharges + Prodprice;
+            //    $(this).val(TotalAmount);
+            //}
+            //var $row = $(this).closest('.row'); // get parent row
+            //var est = $(this).val(); // read estimante
+            //var count = $row.find('input[name="deliveryCharges[]"]').val(); // read count
+            //$row.find('span.Amount').html(est * count); // put product
+
+    /*  });*/
+
+            //$('input, select').each(
+            //    function (index) {
+            //        var input = $(this);
+            //       alert(input.attr('name') + ' ' + input.val());
+            //    }
+            //);
+            //alert(allVal);
+
+
+
+
+            //function myFunction(Qty, deliveryCharges, price) {
+            //    var Qty = document.getElementById("Qty").value;
+            //    var deliveryCharges = document.getElementById("deliveryCharges").value;
+            //    var price = document.getElementById("price").value;
+            //    var TotalAmount = (parseInt(Qty) * parseInt(price)) + parseInt(deliveryCharges);
+            //    document.getElementById("TotalAmount").value = TotalAmount;
+            //}
+
+
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
