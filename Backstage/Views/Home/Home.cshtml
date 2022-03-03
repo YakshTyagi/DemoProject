@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewData["Title"] = "Home";
+}
+
+
+<head>
+    <link rel="stylesheet" href="~/css/Home.css">
+</head>
+<h1>Home</h1>
+<div class="menu">
+    <div class="form-group">
+        <input type="submit" value="Dashboard" class="btn btn-success" onclick="location.href='@Url.Action("Dashboard", "Home")'" />
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="EPG" class="btn btn-success" onclick="location.href='@Url.Action("EPG", "Home")'" />
+    </div>
+</div>
+

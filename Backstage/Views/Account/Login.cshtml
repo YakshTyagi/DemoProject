@@ -1,0 +1,40 @@
+﻿@model Backstage.Models.Users
+@{
+        ViewData["Title"] = "Login";
+    }
+
+    <h1>Login</h1>
+
+
+    <div class="row justify-content-md-center">
+        @using (Html.BeginForm())
+        {
+            @Html.ValidationSummary(true, "Login Failed, check details");
+            <div>
+                <fieldset>
+                    <div class="editor-label">@Html.LabelFor(u => u.Username)</div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(u => u.Username)
+                        @Html.ValidationMessageFor(u => u.Username)
+                    </div>
+                    <div class="editor-label">@Html.LabelFor(u => u.Password)</div>
+                    <div class="editor-field">
+                        @Html.PasswordFor(u => u.Password)
+                        @Html.ValidationMessageFor(u => u.Password)
+                    </div> <br />
+                    <div class="form-group">
+                        <input type="submit" value="LogIn" class="btn btn-success" onclick="location.href='@Url.Action("Dashboard", "Account")'" />
+                    </div>
+                    
+                </fieldset>
+
+
+
+            </div>
+            
+         }
+    </div>
+
+
+
+

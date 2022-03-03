@@ -1,0 +1,7 @@
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.GeneratedMSBuildEditorConfig.editorconfig
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.AssemblyInfoInputs.cache
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.AssemblyInfo.cs
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.csproj.CoreCompileInputs.cache
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.MvcApplicationPartsAssemblyInfo.cache
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.RazorAssemblyInfo.cache
+E:\Tata Sky\Backstage\obj\Release\netcoreapp3.1\Backstage.RazorAssemblyInfo.cs
